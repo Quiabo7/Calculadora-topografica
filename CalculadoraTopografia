@@ -1,0 +1,95 @@
+import math
+print("Calculadora topográfica")
+print("Escolha a operação:")
+print("1. Conversão de unidade de distância")
+print("2. Conversão de undidade de angulo")
+print("3. Cálculo de soma de ângulos")
+print("4. Cálculo de diferença de ângulos")
+print("5. Cálculo de escala")
+
+choice = input("Digite sua opção: ")
+ 
+if choice == "1":
+    print("Conversão de unidade de distância")
+    print("a. Estacas para metros")
+    print("b. Metros para estacas")
+    sub_choice = input("Digite a sua opção: ")
+    if sub_choice == "a":
+        estacas = int(input("Digite o valor em estacas: "))
+        metros = estacas * 20
+        print("{} estacas equivalem a {} metros".format(estacas, metros))
+    elif sub_choice == "b":
+        metros = float(input("Digite o valor em metros: "))
+        estacas = metros / 20
+        print("{} metros equivalem a {} estacas".format(metros, estacas))
+
+elif choice == "2":
+    print("Conversão de unidade de ângulo")
+    print("a. Graus minuto e segundos para graus decimais")
+    print("b. Graus decimais para graus minutos e segundos")
+    sub_choice = input("Digite a sua opção: ")        
+    if sub_choice == "a":
+        graus = int(input("Digite os graus: "))
+        minutos = int(input("Digite os minutos: "))
+        segundos = int(input("Digite os segundos: ")) 
+        graus_decimais = graus + (minutos / 60) + (segundos / 3600)
+        print("{}° {}' {}'' equivalem a {:.6f}°".format(graus, minutos, segundos, graus_decimais))
+    elif sub_choice == "b":
+        graus_decimais = float(input("Digite os graus decimais: "))
+        graus = int(graus_decimais)
+        minutos = int((graus_decimais - graus) * 60)
+        segundos = (graus_decimais - graus - (minutos / 60)) * 3600
+        print("{:.6f}° equivalem a {}° {}' {}''".format(graus_decimais, graus, minutos, round(segundos)))
+
+elif choice == "3":
+    print("Cálculo de soma de ângulos")
+    grau1 = int(input("Digite os graus do primeiro ângulo: "))
+    minuto1 = int(input("Digite os minutos do primeiro ângulo: "))
+    segundo1 = int(input("Digite os segundos do primeiro ângulo: "))
+    grau2 = int(input("Digite os graus do segundo ângulo: "))
+    minuto2 = int(input("Digite os minutos do segundo ângulo: "))
+    segundo2 = int(input("Digite os segundos do segundo ângulo: "))
+    total_segundos = segundo1 + segundo2
+    total_minutos = minuto1 + minuto2 + total_segundos // 60
+    total_graus = grau1 + grau2 + total_minutos // 60
+    total_segundo = total_segundos % 60
+    total_minutos = total_minutos % 60
+    print("A soma dos ângulos é: {}° {}' {}''".format(total_graus, total_minutos, total_segundo))
+
+elif choice == "4":
+    print("Cálculo de diferença de ângulos")
+    grau1 = int(input("Digite os graus do primeiro ângulo: "))
+    minuto1 = int(input("Digite os minutos do primeiro ângulo: "))
+    segundo1 = int(input("Digite os segundos do primeiro ângulo: "))
+    grau2 = int(input("Digite os graus do segundo ângulo: "))
+    minuto2 = int(input("Digite os minutos do segundo ângulo: "))
+    segundo2 = int(input("Digite os segundos do segundo ângulo: "))
+    total_segundos1 = grau1 * 3600 + minuto1 * 60 + segundo1
+    total_segundos2 = grau2 * 3600 + minuto2 * 60 + segundo2
+    diff_segundos = abs(total_segundos1 - total_segundos2)
+    diff_graus = diff_segundos // 3600
+    diff_minutos = (diff_segundos % 3600) // 60
+    diff_segundo = diff_segundos % 60
+    print("A diferença dos ângulos é {}° {}' {}''".format(diff_graus, diff_minutos, diff_segundo))
+
+elif choice == "5":
+    print("Cálculo de escala")
+    print("a. Cálculo de escala a partir de valores reais e gráficos")
+    print("b. Cálculo de valor gráfico a partir de valor real e escala")
+    print("c. Cálculo de valor real a partir de valor gráfico e escala")
+    sub_choice = input("Digite a sua opção: ")
+    if sub_choice == "a":
+        valor_real = float(input("Digite o valor real (em metros): "))
+        valor_grafico = float(input("Digite o valor gráfico (em centímetros): "))
+        escala = valor_real / (valor_grafico / 100)
+        print("A escala é 1:{}".format(round(escala)))
+    elif sub_choice == "b":
+        valor_real = float(input("Digite o valor real (em metros): "))
+        escala = float(input("Digite a escala (1:x): "))
+        valor_grafico = (valor_real / escala) * 100
+        print("O valor gráfico é {:.2f} cm".format(valor_grafico))
+    elif sub_choice == "c":
+        valor_grafico = float(input("Digite o valor gráfico (em centímetros): "))
+        escala = float(input("Digite a escala (1:x): "))
+        valor_real = (valor_grafico / 100) * escala
+        print("O valor real é {:.2f} metros".format(valor_real))
