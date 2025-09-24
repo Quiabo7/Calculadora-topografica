@@ -1,4 +1,5 @@
 import math
+# Calculadora topográfica
 print("Calculadora topográfica")
 print("Escolha a operação:")
 print("1. Conversão de unidade de distância")
@@ -6,9 +7,10 @@ print("2. Conversão de undidade de angulo")
 print("3. Cálculo de soma de ângulos")
 print("4. Cálculo de diferença de ângulos")
 print("5. Cálculo de escala")
+print("6. Conversão de azimute e rumo")
 
-choice = input("Digite sua opção: ")
- 
+choice = input("Digite a sua opção (1/2/3/4/5/6): ")
+
 if choice == "1":
     print("Conversão de unidade de distância")
     print("a. Estacas para metros")
@@ -93,3 +95,48 @@ elif choice == "5":
         escala = float(input("Digite a escala (1:x): "))
         valor_real = (valor_grafico / 100) * escala
         print("O valor real é {:.2f} metros".format(valor_real))
+
+elif choice == "6":
+    print("Conversão de azimute e rumo")
+    print("a. Rumo para azimute")
+    print("b. Azimute para rumo")
+    sub_choice = input("Digite a sua opção: ")
+    if sub_choice == "a":
+        quadrante = input("Digite o quadrante (NE, SE, SW, NW): ").upper()
+        graus = int(input("Digite os graus: "))
+        minutos = int(input("Digite os minutos: "))
+        segundos = int(input("Digite os segundos: "))
+        angulo = graus + (minutos / 60) + (segundos / 3600)
+        if quadrante == "NE":
+             azimute = angulo
+        elif quadrante == "SE":
+             azimute = 180 - angulo
+        elif quadrante == "SW": 
+             azimute = 180 + angulo
+        elif quadrante == "NW":
+             azimute = 360 - angulo
+        azimute_graus = int(azimute)
+        azimute_minutos = int((azimute - azimute_graus) * 60)
+        azimute_segundos = (azimute - azimute_graus - (azimute_minutos / 60)) * 3600
+        print("O azimute é: {}° {}' {}''".format(azimute_graus, azimute_minutos, round(azimute_segundos)))  
+    elif sub_choice == "b":
+        azimute_graus = int(input("Digite os graus do azimute: "))
+        azimute_minutos = int(input("Digite os minutos do azimute: "))
+        azimute_segundos = int(input("Digite os segundos do azimute: "))
+        azimute = azimute_graus + (azimute_minutos / 60) + (azimute_segundos / 3600)
+        if 0 <= azimute < 90:
+            quadrante = "NE"
+            angulo = azimute
+        elif 90 <= azimute < 180:
+            quadrante = "SE"
+            angulo = 180 - azimute                
+        elif 180 <= azimute < 270:
+            quadrante = "SW"
+            angulo = azimute - 180
+        elif 270 <= azimute < 360:
+            quadrante = "NW"
+            angulo = 360 - azimute
+        angulo_graus = int(angulo)
+        angulo_minutos = int((angulo - angulo_graus) * 60)  
+        angulo_segundos = (angulo - angulo_graus - (angulo_minutos / 60)) * 3600
+        print("O rumo é: {}° {} ' {}'' {}".format(angulo_graus, angulo_minutos, round(angulo_segundos), quadrante))          
